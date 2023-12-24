@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 
-const GetDialog = ({ selected, setSelected, patients, setPatients }) => {
+const GetDialog = ({ selected, setSelected, patients }) => {
     const [dialog, setDialog] = useState("")
     let text = ""
     let dialogInput = null
@@ -23,6 +23,22 @@ const GetDialog = ({ selected, setSelected, patients, setPatients }) => {
     function EditDialog() {
         setDialog(selected.Dialog)
     }
+
+    function sendPost() {
+        const sendJsonRequest = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                Id: selected.Id,
+                Dialog: dialog
+            })
+        };
+        fetch('http://0.0.0.0/updateDialog', sendJsonRequest)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.status)
+            })
+    }
     function SaveDialog() {
         if (dialog !== '') {
             setSelected({
@@ -39,6 +55,7 @@ const GetDialog = ({ selected, setSelected, patients, setPatients }) => {
             });
             buffer[0].Dialog = dialog
             setDialog("")
+            sendPost()
         }
     }
     function keyInDialog(e) {
