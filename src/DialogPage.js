@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SelectPatient from './PaitentsList'
+import SelectPatient from './SelectPatient'
 import GetDialog from './DialogField'
 import ShowPatientStatus from './PatientStatus'
 
